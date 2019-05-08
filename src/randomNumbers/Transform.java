@@ -1,6 +1,6 @@
 package randomNumbers;
 
-import java.util.function.Function;
+import java.util.function.DoubleFunction;
 
 /**
  * 変換法による乱数生成
@@ -9,14 +9,14 @@ import java.util.function.Function;
  */
 public class Transform extends AbstractRandom{
 
-    private final Function<Double, Double> invProDist;//確率分布の逆関数
+    private final DoubleFunction<Double> invProDist;//確率分布の逆関数
 
     /**
      * コンストラクタ
      *
      * @param invProDist 確率分布の逆関数
      */
-    public Transform(Function<Double, Double> invProDist) {
+    public Transform(DoubleFunction<Double> invProDist) {
         this.invProDist = invProDist;
     }
 
