@@ -11,15 +11,19 @@ abstract public class AbstractRandom {
     protected final Random random;
 
     public AbstractRandom() {
-        random = new Random();
+        this(0);
     }
 
     /**
      * seedを指定してRandomを初期化
-     * @param seed 
+     *
+     * @param seed
      */
     public AbstractRandom(long seed) {
-        random = new Random(seed);
+        random = new Random();
+        if (seed > 0) {
+            random.setSeed(seed);
+        }
     }
 
     abstract public double getNext();

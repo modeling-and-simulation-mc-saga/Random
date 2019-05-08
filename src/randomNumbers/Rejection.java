@@ -24,11 +24,7 @@ public class Rejection extends AbstractRandom {
      */
     public Rejection(DoubleFunction<Double> probDensity,
             double min, double max, double maxOfFunction) {
-        super();
-        this.probDensity = probDensity;
-        this.min = min;
-        this.max = max;
-        this.maxOfFunction = maxOfFunction;
+        this(probDensity, min, max, maxOfFunction, 0);
     }
 
     public Rejection(DoubleFunction<Double> probDensity,

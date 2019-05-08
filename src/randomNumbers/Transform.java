@@ -17,8 +17,7 @@ public class Transform extends AbstractRandom {
      * @param invProDist 確率分布の逆関数
      */
     public Transform(DoubleFunction<Double> invProDist) {
-        super();
-        this.invProDist = invProDist;
+        this(invProDist,0);
     }
 
     public Transform(DoubleFunction<Double> invProDist, long seed) {

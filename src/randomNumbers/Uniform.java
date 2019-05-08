@@ -24,9 +24,7 @@ public class Uniform extends AbstractRandom {
      * @param max 上限
      */
     public Uniform(double min, double max) {
-        super();
-        this.min = min;
-        this.max = max;
+        this(min,max,0);
     }
 
     public Uniform(double min, double max, long seed) {
