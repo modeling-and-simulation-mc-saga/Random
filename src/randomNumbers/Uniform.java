@@ -12,7 +12,7 @@ import myLib.utils.FileIO;
  *
  * @author tadaki
  */
-public class Uniform  extends AbstractRandom{
+public class Uniform extends AbstractRandom {
 
     private final double min;
     private final double max;
@@ -24,17 +24,25 @@ public class Uniform  extends AbstractRandom{
      * @param max 上限
      */
     public Uniform(double min, double max) {
+        super();
+        this.min = min;
+        this.max = max;
+    }
+
+    public Uniform(double min, double max, long seed) {
+        super(seed);
         this.min = min;
         this.max = max;
     }
 
     /**
      * 乱数を一つ生成
-     * @return 
+     *
+     * @return
      */
     @Override
     public double getNext() {
-        return (max - min) * Math.random() + min;
+        return (max - min) * random.nextDouble() + min;
     }
 
     /**
@@ -56,7 +64,7 @@ public class Uniform  extends AbstractRandom{
         }
         //ヒストグラムを出力
         List<Point2D.Double> plist = histogram.calculateFrequency();
-        String filename =Uniform.class.getSimpleName()+"-output.txt";
+        String filename = Uniform.class.getSimpleName() + "-output.txt";
         try (BufferedWriter out = FileIO.openWriter(filename)) {
             for (Point2D.Double p : plist) {
                 FileIO.writeSSV(out, p.x, p.y);

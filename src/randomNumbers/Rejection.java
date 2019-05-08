@@ -7,7 +7,7 @@ import java.util.function.DoubleFunction;
  *
  * @author tadaki
  */
-public class Rejection  extends AbstractRandom{
+public class Rejection extends AbstractRandom {
 
     private final DoubleFunction<Double> probDensity;//確率密度関数
     private final double min;//乱数生成の下限
@@ -22,8 +22,18 @@ public class Rejection  extends AbstractRandom{
      * @param max 乱数生成の上限
      * @param maxOfFunction 確率密度関数の最大値
      */
-    public Rejection(DoubleFunction<Double> probDensity, 
+    public Rejection(DoubleFunction<Double> probDensity,
             double min, double max, double maxOfFunction) {
+        super();
+        this.probDensity = probDensity;
+        this.min = min;
+        this.max = max;
+        this.maxOfFunction = maxOfFunction;
+    }
+
+    public Rejection(DoubleFunction<Double> probDensity,
+            double min, double max, double maxOfFunction, long seed) {
+        super(seed);
         this.probDensity = probDensity;
         this.min = min;
         this.max = max;
@@ -41,8 +51,8 @@ public class Rejection  extends AbstractRandom{
         double nextRandom = 0.;
         while (!done) {
             //二つの乱数
-            double x = Math.random();
-            double y = Math.random();
+            double x = random.nextDouble();
+            double y = random.nextDouble();
             nextRandom = (max - min) * x + min;
             done = (y < probDensity.apply(nextRandom) / maxOfFunction);
         }

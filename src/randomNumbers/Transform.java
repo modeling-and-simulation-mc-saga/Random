@@ -7,7 +7,7 @@ import java.util.function.DoubleFunction;
  *
  * @author tadaki
  */
-public class Transform extends AbstractRandom{
+public class Transform extends AbstractRandom {
 
     private final DoubleFunction<Double> invProDist;//確率分布の逆関数
 
@@ -17,6 +17,12 @@ public class Transform extends AbstractRandom{
      * @param invProDist 確率分布の逆関数
      */
     public Transform(DoubleFunction<Double> invProDist) {
+        super();
+        this.invProDist = invProDist;
+    }
+
+    public Transform(DoubleFunction<Double> invProDist, long seed) {
+        super(seed);
         this.invProDist = invProDist;
     }
 
@@ -27,7 +33,7 @@ public class Transform extends AbstractRandom{
      */
     @Override
     public double getNext() {
-        double x = Math.random();
+        double x = random.nextDouble();
         return invProDist.apply(x);
     }
 
