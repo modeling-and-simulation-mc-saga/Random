@@ -3,7 +3,7 @@ set output "Exp.pdf"
 set title "{/:Roman exponential distribution}" 
 set xlabel "{/:Italic x}"
 set ylabel "{/:Italic p}({/:Italic x})"
-set log y
+set yrange [0:2]
 set style fill solid border lc rgb "black" #ヒストグラムのスタイル
 A = exp(1)/(exp(1)-1)
 f(x) = A*exp(-x)
