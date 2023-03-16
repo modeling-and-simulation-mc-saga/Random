@@ -3,18 +3,17 @@ package randomNumbers;
 import java.util.function.DoubleFunction;
 
 /**
- * 変換法による乱数生成
+ * Transform method
  *
  * @author tadaki
  */
 public class Transform extends AbstractRandom {
 
-    private final DoubleFunction<Double> invProDist;//確率分布の逆関数
-
+    private final DoubleFunction<Double> invProDist;//inverse of distribution
+    
     /**
-     * コンストラクタ
-     *
-     * @param invProDist 確率分布の逆関数
+    *
+     * @param invProDist inverse of distribution
      */
     public Transform(DoubleFunction<Double> invProDist) {
         this(invProDist,0);
@@ -25,11 +24,6 @@ public class Transform extends AbstractRandom {
         this.invProDist = invProDist;
     }
 
-    /**
-     * 乱数を一つ生成
-     *
-     * @return 生成された乱数
-     */
     @Override
     public double getNext() {
         double x = random.nextDouble();

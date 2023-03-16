@@ -3,24 +3,23 @@ package randomNumbers;
 import java.util.function.DoubleFunction;
 
 /**
- * 棄却法による乱数生成
+ * Rejection method
  *
  * @author tadaki
  */
 public class Rejection extends AbstractRandom {
 
-    private final DoubleFunction<Double> probDensity;//確率密度関数
-    private final double min;//乱数生成の下限
-    private final double max;//乱数生成の上限
-    private final double maxOfFunction;//確率密度関数の最大値
+    private final DoubleFunction<Double> probDensity;//probability density function
+    private final double min;//minimum of random numbers
+    private final double max;//maximum of random numbers
+    private final double maxOfFunction;//upper limit of probDensity
 
     /**
-     * コンストラクタ
      *
-     * @param probDensity 確率密度関数
-     * @param min 乱数生成の下限
-     * @param max 乱数生成の上限
-     * @param maxOfFunction 確率密度関数の最大値
+     * @param probDensity probability density function
+     * @param min minimum of random numbers
+     * @param max maximum of random numbers
+     * @param maxOfFunction upper limit of probDensity
      */
     public Rejection(DoubleFunction<Double> probDensity,
             double min, double max, double maxOfFunction) {
@@ -36,17 +35,13 @@ public class Rejection extends AbstractRandom {
         this.maxOfFunction = maxOfFunction;
     }
 
-    /**
-     * 乱数を一つ生成
-     *
-     * @return 生成された乱数
-     */
     @Override
     public double getNext() {
-        boolean done = false;//乱数が生成されるとtrueとなる
+        //becomes true if succeding to generate random number
+        boolean done = false;
         double nextRandom = 0.;
         while (!done) {
-            //二つの乱数
+            //generating two uniform random numbers
             double x = random.nextDouble();
             double y = random.nextDouble();
             nextRandom = (max - min) * x + min;

@@ -10,12 +10,12 @@ abstract public class AbstractRandom {
 
     protected final Random random;
 
-    public AbstractRandom() {
-        this(0);
+    public AbstractRandom(Random random){
+        this.random = random;
     }
-
+    
     /**
-     * seedを指定してRandomを初期化
+     * Initializing with specifying the seed
      *
      * @param seed
      */
@@ -25,6 +25,11 @@ abstract public class AbstractRandom {
             random.setSeed(seed);
         }
     }
+    
+    public AbstractRandom() {
+        this(new Random(0));
+    }
+
 
     abstract public double getNext();
 }
