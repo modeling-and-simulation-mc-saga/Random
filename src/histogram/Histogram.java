@@ -1,27 +1,28 @@
 package histogram;
 
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import myLib.utils.Utils;
 
 /**
- * ヒストグラム
+ * Histogram
  *
  * @author tadaki
  */
 public class Histogram {
 
-    private final double min;//範囲の下限
-    private final double max;//範囲の上限
-    private final double binWidth;//bin の幅
-    private final int hist[];//ヒストグラム
+    private final double min;
+    private final double max;
+    private final double binWidth;
+    private final int hist[];
 
     /**
-     * コンストラクタ：binの数を指定
+     * Constructor with specifyinng the number of bins
      *
-     * @param min 下限
-     * @param max 上限
-     * @param numBin binの数
+     * @param min
+     * @param max
+     * @param numBin
      */
     public Histogram(double min, double max, int numBin) {
         this.min = min;
@@ -31,11 +32,11 @@ public class Histogram {
     }
 
     /**
-     * コンストラクタ：binの幅を指定
+     * Constructor with specifying the width of bins
      *
-     * @param min 下限
-     * @param max 上限
-     * @param binWidth binの幅
+     * @param min
+     * @param max
+     * @param binWidth
      */
     public Histogram(double min, double max, double binWidth) {
         this.min = min;
@@ -49,18 +50,18 @@ public class Histogram {
     }
 
     /**
-     * 値を一つ登録する
+     * register one value
      *
      * @param x
      * @return
      */
     public int put(double x) {
-        if (x < min || x >= max) {//範囲外の場合
+        if (x < min || x >= max) {//if x is out of the area
             return -1;
         }
-        //xが入るべきbinの番号を調べる
+        // find the index of the bin
         int binIndex = (int) ((x - min) / binWidth);
-        //bin のカウントを一つ増やす
+        // increate the count of the bin
         hist[binIndex]++;
         return binIndex;
     }
@@ -81,31 +82,33 @@ public class Histogram {
         if(index<0||index>=hist.length)return -1;
         return hist[index];
     }
+    
     /**
-     * 結果をリストとして取得する
+     * returning the result
      *
-     * 値は確率になるように規格化する
+     * the values are normalized as the probability density
      *
      * @return
      */
     public List<Point2D.Double> calculateFrequency() {
-        List<Point2D.Double> pointList = Utils.createList();
-        //カウントの総和を求める
+        List<Point2D.Double> pointList = 
+                Collections.synchronizedList(new ArrayList<>());
+        //the total number of data
         int sum = 0;
         for (int i = 0; i < hist.length; i++) {
             sum += hist[i];
         }
 
         for (int i = 0; i < hist.length; i++) {
-            double x = min + i * binWidth + binWidth / 2.;//binの中央値
-            double y = (double) hist[i] / sum / binWidth;//binに入る割合
+            double x = min + i * binWidth + binWidth / 2.;//the half value of a bin
+            double y = (double) hist[i] / sum / binWidth;//relative frequency
             pointList.add(new Point2D.Double(x, y));
         }
         return pointList;
     }
 
     /**
-     * plistが規格化されていることを確かめる
+     * validate normalized
      *
      * @param plist
      * @return
